@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for subreddit in object_list %}
+<a href="{% url 'subreddit_detail_view' subreddit.id %}">{{ subreddit.name }}</a> - {{ subreddit.description }}<br>
+{% endfor %}
+{% endblock %}

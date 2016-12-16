@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ subreddit.name }}</h2>
+{% for post in subreddit.post_list %}
+<a href="{% url 'post_detail_view' post.id %}">{{ post.title }}</a><br>
+{% endfor %}
+{% endblock %}

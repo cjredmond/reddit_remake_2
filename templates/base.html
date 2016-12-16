@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="{% url 'index_view' %}">Home</a></li>
+        <li><a href="{% url 'subreddit_list_view' %}">Subreddits</a></li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'logout' %}?next={% url 'index_view' %}">Logout</a></li>
+      </ul>
+      </nav>
+    {% block content %}
+    {% endblock %}
+  </body>
+</html>
