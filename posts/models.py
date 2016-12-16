@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta, timezone
 from django.utils import timezone
+from comments.models import Comment
 
 class Subreddit(models.Model):
     name = models.CharField(max_length=40)
@@ -26,6 +27,9 @@ class Post(models.Model):
 
     def vote_count(self):
         return sum([vote.score for vote in self.postvote_set.all()])
+
+    def comment_list(self):
+        return self.comment_set.all()
 
 class PostVote(models.Model):
     post = models.ForeignKey(Post)

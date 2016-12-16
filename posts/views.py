@@ -1,5 +1,4 @@
 from django.shortcuts import render
-
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from posts.models import Subreddit, Post, PostVote
