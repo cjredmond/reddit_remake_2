@@ -2,5 +2,17 @@
 {% block content %}
 <h5>{{ post.subreddit.name }}</h5>
 <h3>{{ post.title }} - {{ post.user }}</h3>
+<form class="" action="{% url 'post_upvote_view' post.id %}" method="post">
+  {% csrf_token %}
+  <input type="hidden" name="value" value="true">
+  <input type="submit" value="+">
+</form>
+
+<form class="" action="{% url 'post_downvote_view' post.id %}" method="post">
+  {% csrf_token %}
+  <input type="hidden" name="value" value="false">
+  <input type="submit" value="-">
+</form>
+
 {{ post.body }}
 {% endblock %}

@@ -23,3 +23,17 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+class PostVote(models.Model):
+    post = models.ForeignKey(Post)
+    user = models.ForeignKey(User)
+    value = models.BooleanField()
+
+    class Meta:
+        unique_together = ('user', 'post')
+
+    @property
+    def score(self):
+        if self.value:
+            return 1
+        return -1
