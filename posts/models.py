@@ -24,6 +24,9 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def vote_count(self):
+        return sum([vote.score for vote in self.postvote_set.all()])
+
 class PostVote(models.Model):
     post = models.ForeignKey(Post)
     user = models.ForeignKey(User)
