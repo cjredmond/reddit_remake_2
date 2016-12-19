@@ -6,6 +6,11 @@ from django.urls import reverse, reverse_lazy
 
 class IndexView(TemplateView):
     template_name = "index.html"
+    def get_context_data(self):
+        context = super().get_context_data()
+        posts = Post.objects.all()
+        context['popular'] = sorted(posts, key=lambda t: -t.vote_count())[:10]
+        return context
 
 class SubredditListView(ListView):
     model = Subreddit
@@ -15,8 +20,10 @@ class SubredditDetailView(DetailView):
 
 class PostCreateView(CreateView):
     model = Post
-    success_url = "/"
     fields = ('title', 'body')
+    def get_success_url(self, **kwargs):
+        target = Subreddit.objects.get(id=self.kwargs['pk'])
+        return reverse('subreddit_detail_view', args=(target.id,))
 
     def form_valid(self,form):
         instance = form.save(commit=False)

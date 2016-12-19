@@ -1,3 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
+
+{% for post in popular %}
+<a href="{% url 'post_detail_view' post.id %}">{{ post.title }}</a> {{ post.vote_count }}<br>
+{% endfor %}
+
 {% endblock %}

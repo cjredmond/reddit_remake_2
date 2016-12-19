@@ -11,6 +11,9 @@
         <li><a href="{% url 'subreddit_list_view' %}">Subreddits</a></li>
         <li><a href="{% url 'login' %}">Login</a></li>
         <li><a href="{% url 'logout' %}?next={% url 'index_view' %}">Logout</a></li>
+        {% if not request.user.is_authenticated %}
+        <li><a href="{% url 'user_create_view' %}">New User</a></li>
+        {% endif %}
       </ul>
       </nav>
     {% block content %}

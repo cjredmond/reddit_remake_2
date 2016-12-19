@@ -1,40 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
 <h5>{{ post.subreddit.name }}</h5>
-<h3>{{ post.title }} - {{ post.user }}</h3>
-{{ post.vote_count }}
-<form class="" action="{% url 'post_upvote_view' post.id %}" method="post">
-  {% csrf_token %}
-  <input type="hidden" name="value" value="true">
-  <input type="submit" value="+">
-</form>
-
-<form class="" action="{% url 'post_downvote_view' post.id %}" method="post">
-  {% csrf_token %}
-  <input type="hidden" name="value" value="false">
-  <input type="submit" value="-">
-</form>
+<h3>{{ post.title }} - {{ post.user }} {{ post.vote_count }}</h3>
 
 {{ post.body }}
+{% if request.user.is_authenticated %}
+{% include 'partials/_postvote.html' %}
+{% endif %}
 
+{% if request.user.is_authenticated %}
 <h5>Comment</h5>
 <form class="" action="{% url 'comment_create_view' post.id %}" method="post">
   {% csrf_token %}
   <input type="text" name="body" value="">
   <input type="submit" value="Submit">
 </form>
+
 {% for comment in post.comment_list %}
-{{ comment.user }}- {{ comment.body }} {{ comment.vote_count }}
-<form class="" action="{% url 'comment_upvote_view' comment.id %}" method="post">
-  {% csrf_token %}
-  <input type="hidden" name="value" value="true">
-  <input type="submit" value="+">
-</form>
-<form class="" action="{% url 'comment_downvote_view' comment.id %}" method="post">
-  {% csrf_token %}
-  <input type="hidden" name="value" value="false">
-  <input type="submit" value="-">
-</form>
+{% include 'partials/_commentvote.html' %}
 {% endfor %}
+{% endif %}
+
+
 
 {% endblock %}
